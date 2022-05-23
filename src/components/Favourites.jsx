@@ -6,9 +6,10 @@ import { addFavID } from "../feautures/apiSlice";
 import { addFavListName } from "../feautures/listNameSlice";
 import api from "../api";
 import { Link } from "react-router-dom";
+import "./Favourites.css";
 import { setDisable } from "../feautures/saveToggle";
 
-function Favorites() {
+function  Favorites() {
   const favs = useSelector((state) => state.favs);
   const dispatch = useDispatch();
 
@@ -29,16 +30,19 @@ function Favorites() {
   };
 
   return (
-    <div className="favorites">
+    <div className="favorites mt-4 border-0 col-md-4 col-12">
       <input
         placeholder="New list name: "
-        className="favorites__name"
+        className="favorites__name rounded"
         defaultValue="Example List"
         onChange={(e) => setListName(e.target.value)}
+        disabled={apiID.api}
       />
       <ul className="list-group">
         {favs.map((f) => (
           <li key={f.id} className="list-group-item">
+            <div className="d-flex justify-content-between align-items-center">
+
             {f.title} {f.year}
             <button
               type="button"
@@ -46,16 +50,21 @@ function Favorites() {
               onClick={() => {
                 dispatch(removeMovie({ id: f.id }));
               }}
-            >
-              X
+              >
+              <i className="fas fa-trash-alt"></i>
             </button>
+              </div>
           </li>
         ))}
       </ul>
       {apiID.api 
       ?
-       <Link to= {`/favorite/${apiID.api}`} >Go to List</Link> :
-       <button onClick={handleSave} className="favorites__save">Save</button>
+       <Link className="text-decoration-none" to= {`/favorite/${apiID.api}`} >
+         <div  className="favorites__save rounded col-12">
+         Go to List
+         </div>
+         </Link> :
+       <button onClick={handleSave} className="favorites__save rounded" >Save</button>
       }
     </div>
   );

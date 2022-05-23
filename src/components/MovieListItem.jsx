@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addMovie } from "../feautures/favListSlice";
 import styles from "./MovieListItem.module.css";
 
+
 export default function MovieItem({ movie, disable }) {
   const dispatch = useDispatch();
 
@@ -12,36 +13,32 @@ export default function MovieItem({ movie, disable }) {
         id: movie.imdbID,
         title: movie.Title,
         year: movie.Year,
-        poster: movie.Poster,
+        poster: movie.Poster
       })
     );
   };
 
   return (
     <div className={styles.cardFilm}>
-      <img
-        src={movie.Poster}
-        className={styles.poster}
-        onError={(e) => (
-          (e.target.onerror = null),
-          (e.target.src =
-            "https://cringemdb.com/img/movie-poster-placeholder.png")
-        )}
-      />
-
-      <div >
-        <h3 className={styles.movieInfo}>
-          {movie.Title} {`(${movie.Year})`}
-        </h3>
+      <div className={styles.addAndImg}>
         <button
           type="button"
-          className={styles.addBtn}
+          className="movie-item__add-button"
+          id={styles.favButton}
           disabled={disable}
           onClick={handleAdd}
         >
-          Add to favorite ⭐
+           Add list
         </button>
+      <img className={styles.poster} src={movie.Poster} alt={movie.Title} />
       </div>
+      <div className="movie-item__info">
+
+        </div>
+        <h3 className="movie-item__title" id={styles.movieTitle}>
+          {movie.Title} <span className={styles.movieYear}> {`(${movie.Year})`}</span>
+        </h3>
+        <p>{disable}</p>
     </div>
   );
 }

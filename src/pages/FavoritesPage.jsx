@@ -12,13 +12,21 @@ const FavoritesPage = () => {
   const listName = useSelector(selectFavName);
 
   useEffect(() => {
-    new Splide("#image-carousel").mount();
+
+
+
+
+    var splide = new Splide( '.splide', {
+      perPage: 1,
+      rewind : true,
+    } );
+    
+    splide.mount();
   }, []);
 
   return (
-    <div>
-      <h3>Your Favourites films</h3>
-      <p>{listName}</p>
+    <div className="container mt-5">
+      <h2>{listName}</h2>
       {/* <ul>
         {favs.map((m) => (
           <li key={m.id}>
